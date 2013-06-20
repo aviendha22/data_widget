@@ -15,40 +15,18 @@
 
 
     function updateClock() {
-        var currentTime = new Date ( );
         
-        var currentHours = currentTime.getHours ( );
-        var currentMinutes = currentTime.getMinutes ( );
-        var currentSeconds = currentTime.getSeconds ( );
-        
-        // Pad the minutes and seconds with leading zeros, if required
-        currentMinutes = ( currentMinutes < 10 ? "0" : "" ) + currentMinutes;
-        currentSeconds = ( currentSeconds < 10 ? "0" : "" ) + currentSeconds;
- 
-        // Choose either "AM" or "PM" as appropriate
-        var timeOfDay = ( currentHours < 12 ) ? "AM" : "PM";
-        
-        // Convert the hours component to 12-hour format if needed
-        currentHours = ( currentHours > 12 ) ? currentHours - 12 : currentHours;
-        
-        // Convert an hours component of "0" to "12"
-        currentHours = ( currentHours == 0 ) ? 12 : currentHours;
-        
-        // Compose the string for display
-        var currentTimeString = currentHours + ":" + currentMinutes + ":" + currentSeconds + " " + timeOfDay;
-     
         // Update the time display
         document.getElementById("clock").firstChild.nodeValue = currentTimeString;
         OWF.Eventing.publish("ClockChannel", currentTimeString + "lalalala");
         
-        // Log a message 
-        if (currentSeconds % 10 == 0) {
-        	logger.debug(currentTimeString);
-        }
-
+        
+       	logger.debug(currentTimeString);
+        
 	}
 
     function initPage() { 
+    	alert("initing");
         updateClock();
 
         msg = 'Running in OWF: ' + (OWF.Util.isRunningInOWF()?"Yes":"No");
@@ -112,7 +90,7 @@ table {
 <script type="text/javascript" src="http://everest-build/owf-sample-html/js/owf-widget-min.js"></script>
 
 <script>
-	
+/*	
 	var logger, appender;
 	if (window.owfdojo){
 		var logger = OWF.Log.getDefaultLogger();
@@ -127,16 +105,10 @@ table {
 					
 				});	
 		}	);	
-	}
+	}*/
 
-    var msg = 'Running in OWF: ' + (OWF.Util.isRunningInOWF()?"Yes":"No");
-	document.getElementById("owf").innerHTML = msg;
-	document.getElementById("owf").style.display = 'block';
-	
 </script>
 
-
-	
 	<div class="widgetContents">
 	<div class="panel-header">Announcing Clock</div>
 	<div id="error-panel" class="error-panel"></div>
