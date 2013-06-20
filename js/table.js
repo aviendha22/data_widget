@@ -3,7 +3,7 @@ var temp = [];
 var t = d3.select("#raw_data");
 
 var Sentence = Backbone.Model.extend({
-	
+	//something needs to go here....
 });
 
 var Table = Backbone.Collection.extend({
@@ -63,32 +63,41 @@ var TableView = Backbone.View.extend({
 		this.$el.append(sentView.render().el);
 	},
 	getTimes: function(){
-		return this.collection.pluck("0");
+		return this.collection.pluck('time');						//JSON
+		//return this.collection.pluck("0");						//CSV
 	}
 });
 
 var table;
 
-d3.text('./data.txt', function(text){
+d3.json('./raw_data.txt', function(text){							//JSON
+//d3.text('./data.txt', function(text){								//CSV
 	
-	datas = d3.csv.parseRows(text);
+	datas = text;													//JSON
+	//datas = d3.csv.parseRows(text);									//CSV
 	var rows = datas.length;
 
 	var t = d3.select("#raw_data");
 	
-	createHeaders(datas[0]);
-	datas.shift();
-	temp = datas.slice(0,rows);
+	createHeaders(Object.keys(datas[0]));							//JSON
+	//createHeaders(datas[0]);										//CSV
 	
-	for (var i = 0; i < datas.length; i++)
-		temp[i][0] = new Date(Date.parse(temp[i][0]));
-		
+	//datas.shift();													//commented out for JSON
+	
+	temp = datas;													//JSON
+	//temp = datas.slice(0,rows);										//CSV
+	
+	for (var i = 0; i < datas.length; i++){
+		temp[i]['time'] = new Date(Date.parse(temp[i]['time']));	//JSON
+		//temp[i][0] = new Date(Date.parse(temp[i][0]));				//CSV
+	}
 	
 	var table = new TableView(temp);
 	
 	d3.selectAll("th")
 		.on("click", function(){
-			var col = parseInt(this.id);
+			var col = parseInt(this.id);							//CSV
+			col = Object.keys(temp[0])[col];						//JSON
 			if (this.className == "up"){
 				d3.selectAll("th").attr("class","unsorted");
 				this.className = "down";
@@ -104,9 +113,9 @@ d3.text('./data.txt', function(text){
 	var apple = table.getTimes();
 	for (i = 0; i< apple.length; i++){
 		apple[i] = Date.parse(apple[i]);
-		//alert(apple[i]);							//array of integers that represent seconds since epoch
 	}
 	
+	alert(apple);							//array of integers that represent seconds since epoch
 });
 	
 function createHeaders(arr){

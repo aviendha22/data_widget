@@ -3,48 +3,6 @@
 <head>
 	<meta charset="utf-8">
 	<title>EVEREST Raw Data Table</title>
-	<script type="text/javascript" src="http://everest-build/owf-sample-html/js/owf-widget-debug.js"></script>
-<script type="text/javascript" src="http://everest-build/owf-sample-html/js/owf-widget-min.js"></script>
-	<script>
-	alert("AT THE BEGINNING");
-	OWF.relayFile = '/owf-sample-html/js/eventing/rpc_relay.uncompressed.html';
-	
-    var logger = OWF.Log.getDefaultLogger();
-    var appender = logger.getEffectiveAppenders()[0];
-
-	alert("AFTER DECLARATIONS");
-    // Enable logging 
-    appender.setThreshold(log4javascript.Level.INFO);
-    OWF.Log.setEnabled(false);
-
-
-    function updateClock() {
-        
-        // Update the time display
-        document.getElementById("clock").firstChild.nodeValue = "la";
-        OWF.Eventing.publish("ClockChannel", "lala");
-        
-       	logger.debug("stuff");
-        
-	}
-
-    function initPage() { 
-    	alert("initing");
-        updateClock();
-
-        msg = 'Running in OWF: ' + (OWF.Util.isRunningInOWF()?"Yes":"No");
-
-        document.getElementById("message-panel").innerHTML = msg;
-        document.getElementById("message-panel").style.display = 'block';
-
-        setInterval('updateClock()', 1000 )
-    }
-	alert("lostsa stuff");
-    owfdojo.addOnLoad(function() {
-    	alert("lalalalalalala");
-        OWF.ready(initPage);
-    });
-    </script>
 </head>
 
 <style>
@@ -82,8 +40,8 @@ table {
 </style>
 <body>
 
-	<div id="owf"></div>
-	<table border="1" id='raw_data'></table>
+<div id="owf"></div>
+<table border="1" id='raw_data'></table>
 
 <script src="js/underscore.js"></script>
 <script src="js/jquery.js"></script>
@@ -91,10 +49,8 @@ table {
 <script src="js/d3.v3.js"></script>
 <script src="js/table.js"></script>
 <script type="text/javascript" src="http://everest-build/owf-sample-html/js/owf-widget-debug.js"></script>
-<script type="text/javascript" src="http://everest-build/owf-sample-html/js/owf-widget-min.js"></script>
-
 <script>
-/*	
+	
 	var logger, appender;
 	if (window.owfdojo){
 		var logger = OWF.Log.getDefaultLogger();
@@ -109,22 +65,11 @@ table {
 					
 				});	
 		}	);	
-	}*/
+	}
+	var msg = 'Running in OWF: ' + (OWF.Util.isRunningInOWF()?"Yes":"No");
 
+    document.getElementById("owf").innerHTML = msg;
+    document.getElementById("owf").style.display = 'block';
 </script>
-
-	<div class="widgetContents">
-	<div class="panel-header">Announcing Clock</div>
-	<div id="error-panel" class="error-panel"></div>
-	<div class="panel-body">
-		<div class="clock-frame">
-			<span id="clock">&nbsp;</span>
-		</div>
-	</div>
-		
-	<div class="button-panel"></div>
-		
-	<div id="message-panel" class="message-panel"></div>
-       
 </body>
 </html>
