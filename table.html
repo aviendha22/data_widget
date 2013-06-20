@@ -3,12 +3,16 @@
 <head>
 	<meta charset="utf-8">
 	<title>EVEREST Raw Data Table</title>
+	<script type="text/javascript" src="http://everest-build/owf-sample-html/js/owf-widget-debug.js"></script>
+<script type="text/javascript" src="http://everest-build/owf-sample-html/js/owf-widget-min.js"></script>
 	<script>
+	alert("AT THE BEGINNING");
 	OWF.relayFile = '/owf-sample-html/js/eventing/rpc_relay.uncompressed.html';
-
+	
     var logger = OWF.Log.getDefaultLogger();
     var appender = logger.getEffectiveAppenders()[0];
 
+	alert("AFTER DECLARATIONS");
     // Enable logging 
     appender.setThreshold(log4javascript.Level.INFO);
     OWF.Log.setEnabled(false);
@@ -17,11 +21,10 @@
     function updateClock() {
         
         // Update the time display
-        document.getElementById("clock").firstChild.nodeValue = currentTimeString;
-        OWF.Eventing.publish("ClockChannel", currentTimeString + "lalalala");
+        document.getElementById("clock").firstChild.nodeValue = "la";
+        OWF.Eventing.publish("ClockChannel", "lala");
         
-        
-       	logger.debug(currentTimeString);
+       	logger.debug("stuff");
         
 	}
 
