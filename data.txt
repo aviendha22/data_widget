@@ -1,0 +1,32 @@
+time,ent1,rel,ent2
+2013-12-25T00:20:25-08:00,false claims,aggravate,identity theft
+2012-11-18T15:42:13-08:00,the core group of defendants,file,false claims
+2012-08-03T17:03:20-07:00,they,expand,their fraud scheme
+2012-06-19T01:00:13-07:00,they,recruit more than,# individuals
+2013-03-30T08:07:07-07:00,false claims,file in,their names
+2013-07-22T08:59:14-07:00,the recruiters,receive,a kick-back
+2013-05-29T08:35:43-07:00,most of the 100+ fraudulent claims,file via,the internet
+2012-12-15T19:25:08-08:00,most of the 100+ fraudulent claims,receive through,the u.s. mail
+2014-05-22T06:48:02-07:00,their scheme,check,depot
+2013-05-28T07:11:19-07:00,depot customer database,provide,it
+2013-11-09T06:30:56-08:00,this ongoing investigation,conduct by,the u.s. secret service
+2013-07-22T16:51:00-07:00,# additional individuals,sentence on,charges
+2014-01-08T23:43:50-08:00,the defendant,plead guilty in,september #
+2012-09-29T14:01:28-07:00,the government,aggravate,identity theft
+2012-08-22T05:49:01-07:00,she,make to,fema
+2013-02-12T02:30:27-08:00,alabama,damage by,the hurricane
+2013-12-08T23:08:13-08:00,she,file,## fraudulent claims
+2013-05-07T17:07:26-07:00,the wife,make claim to,fema
+2013-12-13T19:38:43-08:00,the husband,assign at,the time
+2014-04-03T12:04:03-07:00,the husband,resign from,the police force
+2013-12-07T23:08:09-08:00,the u.s. attorney’s office,continue,its coordination and cooperation
+2013-08-04T02:37:47-07:00,the ongoing reports of fraud,establish,contacts
+2012-11-25T16:41:56-08:00,# co-conspirators,conspire to defraud,the united states government
+2012-11-25T17:41:56-08:00,the defendant,convict of,the conspiracy charge
+2012-11-25T17:42:56-08:00,his co-conspirators,devise,a scheme
+2013-08-19T14:21:26-07:00,the defendants,agree to back,each other’s false applications
+2012-12-15T02:43:22-08:00,the # co-conspirators,convict of,the conspiracy charge
+2012-09-11T19:34:54-07:00,# co-conspirator,sentence to,# months imprisonment
+2013-03-15T17:16:52-07:00,both co-conspirators,order to pay,full restitution
+2013-06-01T15:37:20-07:00,the defendant,apply for,emergency fema funds
+2012-08-31T07:00:23-07:00,the defendant,obtain most of,this information
