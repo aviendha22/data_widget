@@ -39,7 +39,7 @@
      
         // Update the time display
         document.getElementById("clock").firstChild.nodeValue = currentTimeString;
-        OWF.Eventing.publish("ClockChannel", currentTimeString);
+        OWF.Eventing.publish("ClockChannel", currentTimeString + "lalalala");
         
         // Log a message 
         if (currentSeconds % 10 == 0) {
