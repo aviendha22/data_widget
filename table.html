@@ -78,7 +78,7 @@ table {
 				for (i = 0; i< apple.length; i++){
 					apple[i] = Date.parse(apple[i]);				//array of integers that represent seconds since epoch
 				}
-				JSON.stringify(apple);
+				return JSON.stringify(apple);
 			})
 		}, 10000);
 		
