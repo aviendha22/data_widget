@@ -51,6 +51,7 @@ table {
 		owfdojo.ready(function() {
 			OWF.ready(function(){
 				OWF.notifyWidgetReady();
+				OWF.ready(initPage);
 				
 			});	
 		});	
@@ -58,6 +59,14 @@ table {
 	var msg = 'Running in OWF: ' + (OWF.Util.isRunningInOWF()?"Yes":"No");
     document.getElementById("owf").innerHTML = msg;
     document.getElementById("owf").style.display = 'block';
+    
+    OWF.relayFile = '/owf-sample-html/js/eventing/rpc_relay.uncompressed.html';
+    
+    function initPage(){
+    	OWF.Eventing.publish("testChannel", "hello");
+    }
+    
+    
     
 </script>
 </body>
