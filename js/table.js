@@ -1,6 +1,7 @@
 var MIN = 0;
 var MAX = Number.MAX_VALUE;
 var table;
+var apple;
 var datas = [];
 var temp = [];
 var t = d3.select("#raw_data");
@@ -81,68 +82,6 @@ var TableView = Backbone.View.extend({
 	}
 });
 
-d3.json('./raw_data.txt', function(text){								//JSON
-	
-	datas = text;														//JSON
-	var t = d3.select("#raw_data");
-	
-	createHeaders(Object.keys(datas[0]));								//JSON
-	table = createTable(MIN,MAX);
-	
-	var apple = table.getTimes();
-	for (i = 0; i< apple.length; i++){
-		apple[i] = Date.parse(apple[i]);				//array of integers that represent seconds since epoch
-	}
-	
-		//add a listener to sort the rows based upon what column is clicked
-	d3.selectAll("th")
-		.on("click", function(){
-			var col = parseInt(this.id, 10);							//CSV ALONE
-			col = Object.keys(temp[0])[col];							//JSON
-			if (this.className == "up"){
-				d3.selectAll("th").attr("class","unsorted");
-				this.className = "down";
-				temp.sort( function (a, b){ 
-					if (a[col] < b[col]){
-						return 1;
-					} else {
-						return -1;
-					}
-				});
-			} else {
-				d3.selectAll("th").attr("class","unsorted");
-				this.className = "up";
-				temp.sort( function (a, b){ 
-				
-					if( a[col] > b[col]){
-						return 1;
-					} else {
-						return -1;
-					} 
-				});
-			}
-			table = new TableView(temp);
-		});
-		
-	//grab times from forms for use in re-rendering the table
-	//will be removed, but shows example handling of future input
-	//from timeline widget
-	d3.select('#submit')
-		.on('click', function(){
-			var s = $('#start').val();
-			$('#start').val('');
-			var e = $('#end').val();
-			$('#end').val('');
-			
-			s = Date.parse(s);
-			e = Date.parse(e);
-			
-			if (s && e)
-				createTable(s,e);
-			else
-				createTable(MIN,MAX);
-		});
-});
 
 /*Get a range of data based on start and end params
 Returns a subset of the array of objects datas containing
@@ -179,6 +118,8 @@ function createHeaders(arr){
 			.attr("id", i)
 			.attr("class", "unsorted");
 	}
-	
+}
 
+function getTime(){
+	return table.getTimes();
 }
