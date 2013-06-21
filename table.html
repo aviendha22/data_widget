@@ -130,8 +130,12 @@ table {
 		});
 		
 	setInterval(function(){
-		OWF.Eventing.publish("testChannel1", apple);
+		OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
 	}, 1000);
+	
+	OWF.Eventing.subscribe("testChannel1", function(sender, msg){
+		document.getElementById('owf').innerHTML += msg;
+	});
 });
 
     
