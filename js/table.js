@@ -1,3 +1,6 @@
+var MIN = 0;
+var MAX = Number.MAX_VALUE;
+
 var datas = [];
 var temp = [];
 var t = d3.select("#raw_data");
@@ -82,21 +85,12 @@ d3.json('./raw_data.txt', function(text){							//JSON
 	createHeaders(Object.keys(datas[0]));							//JSON
 	//createHeaders(datas[0]);										//CSV
 	
-	//datas.shift();													//commented out for JSON
-	
-	temp = extractData(1338508800000, 1370044800000);					//JSON
-	//temp = datas.slice(0,rows);										//CSV
-	
-	for (var i = 0; i < temp.length; i++){
-		temp[i]['time'] = new Date(Date.parse(temp[i]['time']));	//JSON
-		//temp[i][0] = new Date(Date.parse(temp[i][0]));				//CSV
-	}
-	
-	var table = new TableView(temp);
-	
+	//datas.shift();												//commented out for JSON
+	table = createTable(MIN,MAX);
+		
 	d3.selectAll("th")
 		.on("click", function(){
-			var col = parseInt(this.id);							//CSV
+			var col = parseInt(this.id, 10);							//CSV
 			col = Object.keys(temp[0])[col];						//JSON
 			if (this.className == "up"){
 				d3.selectAll("th").attr("class","unsorted");
@@ -116,12 +110,28 @@ d3.json('./raw_data.txt', function(text){							//JSON
 	}
 	
 	//alert(apple);							//array of integers that represent seconds since epoch
+	
+	d3.select('#submit')
+		.on('click', function(){
+			var s = $('#start').val();
+			$('#start').val('');
+			var e = $('#end').val();
+			$('#end').val('');
+			
+			s = Date.parse(s);
+			e = Date.parse(e);
+			
+			if (s && e)
+				createTable(s,e);
+			else
+				createTable(MIN,MAX);
+		});
 });
 
 function extractData(start, end){
 	var currData = [];
 	for (var i = 0; i < datas.length; i++){
-		var t = Date.parse(datas[i]['time']);						//JSON
+		var t = Date.parse(datas[i].time);						//JSON
 		//var t = Date.parse(datas[i][0]);							//CSV
 		
 		if (t <= end && t >= start) { currData.push(datas[i]); }
@@ -129,6 +139,17 @@ function extractData(start, end){
 	return currData;
 }	
 	
+function createTable(s, e){
+	temp = extractData(s, e);					//JSON
+	//temp = datas.slice(0,rows);										//CSV
+	
+	for (var i = 0; i < temp.length; i++){
+		temp[i].time = new Date(Date.parse(temp[i].time));	//JSON
+		//temp[i][0] = new Date(Date.parse(temp[i][0]));				//CSV
+	}
+	
+	return (new TableView(temp));
+}
 	
 function createHeaders(arr){
 	var header = d3.select("#raw_data");
