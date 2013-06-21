@@ -93,6 +93,23 @@ d3.json('./raw_data.txt', function(text){								//JSON
 	for (i = 0; i< apple.length; i++){
 		apple[i] = Date.parse(apple[i]);				//array of integers that represent seconds since epoch
 	}
+	
+		//add a listener to sort the rows based upon what column is clicked
+	d3.selectAll("th")
+		.on("click", function(){
+			var col = parseInt(this.id, 10);							//CSV ALONE
+			col = Object.keys(temp[0])[col];							//JSON
+			if (this.className == "up"){
+				d3.selectAll("th").attr("class","unsorted");
+				this.className = "down";
+				temp.sort( function (a, b){ return a[col] < b[col]; });
+			} else {
+				d3.selectAll("th").attr("class","unsorted");
+				this.className = "up";
+				temp.sort( function (a, b){ return a[col] > b[col]; });
+			}
+			table = new TableView(temp);
+		});
 		
 	//grab times from forms for use in re-rendering the table
 	//will be removed, but shows example handling of future input
@@ -150,20 +167,5 @@ function createHeaders(arr){
 			.attr("class", "unsorted");
 	}
 	
-	//add a listener to sort the rows based upon what column is clicked
-	d3.selectAll("th")
-		.on("click", function(){
-			var col = parseInt(this.id, 10);							//CSV ALONE
-			col = Object.keys(temp[0])[col];							//JSON
-			if (this.className == "up"){
-				d3.selectAll("th").attr("class","unsorted");
-				this.className = "down";
-				temp.sort( function (a, b){ return a[col] < b[col]; });
-			} else {
-				d3.selectAll("th").attr("class","unsorted");
-				this.className = "up";
-				temp.sort( function (a, b){ return a[col] > b[col]; });
-			}
-			table = new TableView(temp);
-		});
+
 }
