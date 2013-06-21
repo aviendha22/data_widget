@@ -65,7 +65,10 @@ table {
     
     function initPage(){
     	console.log("in initPage");
-    	OWF.Eventing.publish("testChannel", "hello");
+    	setInterval(function(){
+    		console.log("hi");
+    		OWF.Eventing.publish("testChannel1", "hello");
+    	}, 1000);
     }
     
     
