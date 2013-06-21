@@ -71,15 +71,13 @@ table {
 		createHeaders(Object.keys(datas[0]));								//JSON
 		table = createTable(MIN,MAX);
 		createClickers();
-	
+		
+		apple = table.getTimes();
+		for (i = 0; i< apple.length; i++){
+			apple[i] = Date.parse(apple[i]);				//array of integers that represent seconds since epoch
+		}
 		setInterval(function(){
-			OWF.Eventing.publish("testChannel1", function(){
-				apple = table.getTimes();
-				for (i = 0; i< apple.length; i++){
-					apple[i] = Date.parse(apple[i]);				//array of integers that represent seconds since epoch
-				}
-				return JSON.stringify(apple);
-			})
+			OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
 		}, 10000);
 		
 		OWF.Eventing.subscribe("testChannel2", function(sender, msg){
