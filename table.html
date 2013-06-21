@@ -48,7 +48,7 @@ table {
 		
 		OWF.Log.setEnabled(true);
 		
-		owfdojo.ready(function() {
+		 owfdojo.ready(function() {
 			OWF.ready(function(){
 				OWF.notifyWidgetReady();
 				OWF.ready(initPage);
@@ -61,15 +61,15 @@ table {
     document.getElementById("owf").style.display = 'block';
     
     OWF.relayFile = './rpc_relay.uncompressed.html';
-    console.log(OWF.relayFile);
     
-    function initPage(){
-    	console.log("in initPage");
+      	console.log("in initPage");
     	setInterval(function(){
     		console.log("hi");
-    		OWF.Eventing.publish("testChannel1", "hello");
+    		OWF.Eventing.publish("ClockChannel", "hello");
     	}, 1000);
-    }
+    
+    
+   
     
     
     
