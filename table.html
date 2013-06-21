@@ -63,83 +63,25 @@ table {
     
     OWF.relayFile = './rpc_relay.uncompressed.html';
     
-	//setInterval(function(){
-	//	OWF.Eventing.publish("testChannel1", "hello");
-	//}, 1000);
-	
 	d3.json('./raw_data.txt', function(text){								//JSON
 	
-	datas = text;														//JSON
-	var t = d3.select("#raw_data");
-	
-	createHeaders(Object.keys(datas[0]));								//JSON
-	table = createTable(MIN,MAX);
-	
-	apple = table.getTimes();
-	for (i = 0; i< apple.length; i++){
-		apple[i] = Date.parse(apple[i]);				//array of integers that represent seconds since epoch
-	}
-	
-		//add a listener to sort the rows based upon what column is clicked
-	d3.selectAll("th")
-		.on("click", function(){
-			var col = parseInt(this.id, 10);							//CSV ALONE
-			col = Object.keys(temp[0])[col];							//JSON
-			if (this.className == "up"){
-				d3.selectAll("th").attr("class","unsorted");
-				this.className = "down";
-				temp.sort( function (a, b){ 
-					if (a[col] < b[col]){
-						return 1;
-					} else {
-						return -1;
-					}
-				});
-			} else {
-				d3.selectAll("th").attr("class","unsorted");
-				this.className = "up";
-				temp.sort( function (a, b){ 
-				
-					if( a[col] > b[col]){
-						return 1;
-					} else {
-						return -1;
-					} 
-				});
-			}
-			table = new TableView(temp);
-		});
+		datas = text;														//JSON
+		var t = d3.select("#raw_data");
 		
-	//grab times from forms for use in re-rendering the table
-	//will be removed, but shows example handling of future input
-	//from timeline widget
-	d3.select('#submit')
-		.on('click', function(){
-			var s = $('#start').val();
-			$('#start').val('');
-			var e = $('#end').val();
-			$('#end').val('');
-			
-			s = Date.parse(s);
-			e = Date.parse(e);
-			
-			if (s && e)
-				createTable(s,e);
-			else
-				createTable(MIN,MAX);
-		});
+		createHeaders(Object.keys(datas[0]));								//JSON
+		table = createTable(MIN,MAX);
+		createClickers();
 		
-	setInterval(function(){
-		OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
-	}, 1000);
+		apple = table.getTimes();
+		for (i = 0; i< apple.length; i++){
+			apple[i] = Date.parse(apple[i]);				//array of integers that represent seconds since epoch
+		}
+			
+		setInterval(function(){
+			OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
+		}, 1000);
 	
-	OWF.Eventing.subscribe("testChannel1", function(sender, msg){
-		document.getElementById('owf').innerHTML += msg;
 	});
-});
-
-    
-    
     
 </script>
 </body>
