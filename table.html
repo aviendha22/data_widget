@@ -77,7 +77,6 @@ table {
 			for (i = 0; i< apple.length; i++){
 				apple[i] = Date.parse(apple[i]);
 			}
-			alert(apple.length);
 			OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
 		}, 10000);
 		
