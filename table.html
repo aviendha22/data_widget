@@ -14,21 +14,6 @@
 td {
 	padding:0px 15px 0px 5px;
 }
-.up{
-	background-image:url('img/asc.png');
-	background-repeat:no-repeat;
-	background-position:right center;
-}
-.down{
-	background-image:url('img/des.png');
-	background-repeat:no-repeat;
-	background-position:right center;
-}
-.unsorted{
-	background-image:url('img/uns.png');
-	background-repeat:no-repeat;
-	background-position:right center;
-}
 th {
 	cursor: pointer;
 	padding:10px;
@@ -60,14 +45,13 @@ table {
 		OWF.Log.setEnabled(true);
 		
 		owfdojo.ready(function() {
-				OWF.ready(function(){
-					OWF.notifyWidgetReady();
-					
-				});	
-		}	);	
+			OWF.ready(function(){
+				OWF.notifyWidgetReady();
+				
+			});	
+		});	
 	}
 	var msg = 'Running in OWF: ' + (OWF.Util.isRunningInOWF()?"Yes":"No");
-
     document.getElementById("owf").innerHTML = msg;
     document.getElementById("owf").style.display = 'block';
 </script>

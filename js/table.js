@@ -84,10 +84,10 @@ d3.json('./raw_data.txt', function(text){							//JSON
 	
 	//datas.shift();													//commented out for JSON
 	
-	temp = datas;													//JSON
+	temp = extractData(1338508800000, 1370044800000);					//JSON
 	//temp = datas.slice(0,rows);										//CSV
 	
-	for (var i = 0; i < datas.length; i++){
+	for (var i = 0; i < temp.length; i++){
 		temp[i]['time'] = new Date(Date.parse(temp[i]['time']));	//JSON
 		//temp[i][0] = new Date(Date.parse(temp[i][0]));				//CSV
 	}
@@ -115,8 +115,20 @@ d3.json('./raw_data.txt', function(text){							//JSON
 		apple[i] = Date.parse(apple[i]);
 	}
 	
-	alert(apple);							//array of integers that represent seconds since epoch
+	//alert(apple);							//array of integers that represent seconds since epoch
 });
+
+function extractData(start, end){
+	var currData = [];
+	for (var i = 0; i < datas.length; i++){
+		var t = Date.parse(datas[i]['time']);						//JSON
+		//var t = Date.parse(datas[i][0]);							//CSV
+		
+		if (t <= end && t >= start) { currData.push(datas[i]); }
+	}
+	return currData;
+}	
+	
 	
 function createHeaders(arr){
 	var header = d3.select("#raw_data");
