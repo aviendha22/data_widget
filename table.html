@@ -60,9 +60,11 @@ table {
     document.getElementById("owf").innerHTML = msg;
     document.getElementById("owf").style.display = 'block';
     
-    OWF.relayFile = '/owf-sample-html/js/eventing/rpc_relay.uncompressed.html';
+    OWF.relayFile = './rpc_relay.uncompressed.html';
+    console.log(OWF.relayFile);
     
     function initPage(){
+    	console.log("in initPage");
     	OWF.Eventing.publish("testChannel", "hello");
     }
     
