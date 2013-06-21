@@ -102,11 +102,22 @@ d3.json('./raw_data.txt', function(text){								//JSON
 			if (this.className == "up"){
 				d3.selectAll("th").attr("class","unsorted");
 				this.className = "down";
-				temp.sort( function (a, b){ return a[col] < b[col]; });
+				temp.sort( function (a, b){ 
+					if (a[col] < b[col])
+						return 1;
+					else
+						return 0;
+				});
 			} else {
 				d3.selectAll("th").attr("class","unsorted");
 				this.className = "up";
-				temp.sort( function (a, b){ return a[col] > b[col]; });
+				temp.sort( function (a, b){ 
+				
+					if( a[col] > b[col])
+						return 1;
+					else
+						return 0; 
+				});
 			}
 			table = new TableView(temp);
 		});
