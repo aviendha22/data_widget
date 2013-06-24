@@ -80,8 +80,6 @@ var TableView = Backbone.View.extend({
 	
 });
 
-
-
 /*Create the table based on start and end params, atm creates an
 entirely new table, probs want to just re-render it on change of input
 or addition of new data*/
