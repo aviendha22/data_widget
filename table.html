@@ -39,29 +39,7 @@ table {
 <script src="js/table.js"></script>
 <script type="text/javascript" src="http://everest-build/owf-sample-html/js/owf-widget-debug.js"></script>
 <script>
-	
-	/*var logger, appender;
-	if (window.owfdojo){
-		var logger = OWF.Log.getDefaultLogger();
-		var appender = logger.getEffectiveAppenders()[0];
-		appender.setThreshold(log4javascript.Level.INFO);
-		
-		OWF.Log.setEnabled(true);
-		
-		 owfdojo.ready(function() {
-			OWF.ready(function(){
-				OWF.notifyWidgetReady();
-				//OWF.ready(initPage);
-				
-			});	
-		});	
-	}
-	
-	var msg = 'Running in OWF: ' + (OWF.Util.isRunningInOWF()?"Yes":"No");
-    document.getElementById("owf").innerHTML = msg;
-    document.getElementById("owf").style.display = 'block';*/
-    
-    //OWF.relayFile = './rpc_relay.uncompressed.html';
+
     
 	d3.json('./raw_data.txt', function(text){								//JSON
 	
@@ -77,6 +55,7 @@ table {
 			for (i = 0; i< apple.length; i++){
 				apple[i] = Date.parse(apple[i]);
 			}
+			OWF.Eventing.publish("testChannel1", "testing edit..?");
 			OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
 		}, 10000);
 		
