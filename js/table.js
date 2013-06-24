@@ -1,3 +1,7 @@
+//is it bad that on change, a new table is created?
+//should it instead update the collection data and re-render?
+//that would have the same functionality as the initialization function
+//performance and memory
 var MIN = 0;
 var MAX = Number.MAX_VALUE;
 var table, apple;
@@ -42,8 +46,12 @@ var SentenceView = Backbone.View.extend({
 			.data(vals)
 			.enter().append('td')
 				.text(function(d){ 
-					//cheat to only display part of the date string
-					if (typeof(d) === 'object') { return d.toString().substring(0,24); }
+					if (typeof(d) === 'object') {
+						// Don't display GMT part and after (for now)?
+						var reg = /(.*) GMT-/i;
+						var results = reg.test(d.toString());
+						return RegExp.$1;
+					}
 					return d;
 				});
 		return this;
@@ -165,7 +173,7 @@ function sendData(){
 		for (i = 0; i< apple.length; i++){ apple[i] = Date.parse(apple[i]);	}
 		
 		OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
-		OWF.Eventing.publish("testChannel3", "testing changes");
+		//OWF.Eventing.publish("testChannel3", "testing changes");
 	}, 10000);
 }
 
