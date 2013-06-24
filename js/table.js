@@ -77,7 +77,8 @@ var TableView = Backbone.View.extend({
 	},
 	getTimes: function(){
 		//underscore function to grab all of the times from the data
-		return this.collection.pluck('time');							//JSON
+		return (new Table(temp)).pluck('time');
+		//return this.collection.pluck('time');							//JSON
 	}
 	
 });
@@ -130,7 +131,7 @@ function createClickers(){
 				d3.selectAll("th").attr("class","unsorted");
 				this.className = "down";
 				temp.sort( function (a, b){ 
-					if (a[col] < b[col])
+					if ( a[col] < b[col] )
 						return 1;
 					else
 						return -1;
@@ -139,7 +140,7 @@ function createClickers(){
 				d3.selectAll("th").attr("class","unsorted");
 				this.className = "up";
 				temp.sort( function (a, b){ 
-					if( a[col] > b[col])
+					if( a[col] > b[col] )
 						return 1;
 					else 
 						return -1;
