@@ -58,8 +58,8 @@ rendering the table calls the function to render each sentence
 in the available collection of sentences*/
 var TableView = Backbone.View.extend({
 	el:$('#raw_data'),
-	initialize: function(){
-		this.collection = new Table(temp);
+	initialize: function(t){
+		this.collection = new Table(t);
 		this.render();
 	},
 	render: function(){	
@@ -80,8 +80,8 @@ var TableView = Backbone.View.extend({
 		//underscore function to grab all of the times from the data
 		return this.collection.pluck('time');							//JSON
 	}
+	
 });
-
 
 /*Get a range of data based on start and end params
 Returns a subset of the array of objects datas containing
@@ -106,10 +106,11 @@ function createTable(s, e){
 		temp[i].time = new Date(Date.parse(temp[i].time));			//JSON
 	}
 	
-	return (new TableView(temp));
+	var t = new TableView(temp);
+	return t;
 }
 
-/*Create the headers of the table, and add the sorting listener to them*/
+/*Create the headers of the table*/
 function createHeaders(arr){
 	var header = d3.select("#raw_data");
 	for (var i = 0; i < arr.length; i++){
@@ -130,22 +131,19 @@ function createClickers(){
 				d3.selectAll("th").attr("class","unsorted");
 				this.className = "down";
 				temp.sort( function (a, b){ 
-					if (a[col] < b[col]){
+					if (a[col] < b[col])
 						return 1;
-					} else {
+					else
 						return -1;
-					}
 				});
 			} else {
 				d3.selectAll("th").attr("class","unsorted");
 				this.className = "up";
 				temp.sort( function (a, b){ 
-				
-					if( a[col] > b[col]){
+					if( a[col] > b[col])
 						return 1;
-					} else {
+					else 
 						return -1;
-					} 
 				});
 			}
 			table = new TableView(temp);
@@ -164,7 +162,7 @@ function createClickers(){
 			s = Date.parse(s);
 			e = Date.parse(e);
 			
-			if (s && e)
+			if (s && e && s <= e)
 				createTable(s,e);
 			else
 				createTable(MIN,MAX);
