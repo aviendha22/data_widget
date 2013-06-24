@@ -161,8 +161,8 @@ function createClickers(){
 			e = Date.parse(e);
 			
 			if (s && e && s <= e)
-				createTable(s,e);
+				table = createTable(s,e);
 			else
-				createTable(MIN,MAX);
+				table = createTable(MIN,MAX);
 		});
 }
