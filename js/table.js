@@ -104,6 +104,7 @@ function createTable(s, e){
 	}
 	
 	table = new TableView(temp);
+	return table;
 }
 
 /*Create the headers of the table*/
