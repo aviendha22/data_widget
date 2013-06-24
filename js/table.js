@@ -80,18 +80,7 @@ var TableView = Backbone.View.extend({
 	
 });
 
-/*Get a range of data based on start and end params
-Returns a subset of the array of objects datas containing
-only rows that occur in the specified time range*/
-function extractData(start, end){
-	var currData = [];
-	for (var i = 0; i < datas.length; i++){
-		var ti = Date.parse(datas[i].time);							//JSON
-		
-		if (ti <= end && ti >= start) { currData.push(datas[i]); }
-	}
-	return currData;
-}	
+
 
 /*Create the table based on start and end params, atm creates an
 entirely new table, probs want to just re-render it on change of input
@@ -105,17 +94,6 @@ function createTable(s, e){
 	
 	table = new TableView(temp);
 	return table;
-}
-
-/*Create the headers of the table*/
-function createHeaders(arr){
-	var header = d3.select("#raw_data");
-	for (var i = 0; i < arr.length; i++){
-		header.append("th")
-			.text(arr[i])
-			.attr("id", i)
-			.attr("class", "unsorted");
-	}
 }
 
 function createClickers(){
@@ -165,4 +143,28 @@ function createClickers(){
 			else
 				table = createTable(MIN,MAX);
 		});
+}
+
+/*Get a range of data based on start and end params
+Returns a subset of the array of objects datas containing
+only rows that occur in the specified time range*/
+function extractData(start, end){
+	var currData = [];
+	for (var i = 0; i < datas.length; i++){
+		var ti = Date.parse(datas[i].time);							//JSON
+		
+		if (ti <= end && ti >= start) { currData.push(datas[i]); }
+	}
+	return currData;
+}	
+
+/*Create the headers of the table*/
+function createHeaders(arr){
+	var header = d3.select("#raw_data");
+	for (var i = 0; i < arr.length; i++){
+		header.append("th")
+			.text(arr[i])
+			.attr("id", i)
+			.attr("class", "unsorted");
+	}
 }
