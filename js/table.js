@@ -159,30 +159,31 @@ function createHeaders(arr){
 	}
 }
 
-
-   
-	d3.json('./raw_data.txt', function(text){
-		
-		datas = text;
-		
-		createHeaders(Object.keys(datas[0]));
-		table = createTable(MIN,MAX);
-		createClickers();
-		
-		setInterval(function(){
-			apple = table.getTimes();
-			for (i = 0; i< apple.length; i++){
-				apple[i] = Date.parse(apple[i]);
-			}
-			OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
-		}, 10000);
-		
-		OWF.Eventing.subscribe("testChannel2", function(sender, msg){
-			//assuming msg looks like [a,b]
-			//var range = msg.split(',');
-			//table = createTable(parseInt(range[0], 10),parseInt(range[1], 10));
-			console.log(msg);
-		});
+d3.json('./raw_data.txt', function(text){
 	
+	datas = text;
+	
+	createHeaders(Object.keys(datas[0]));
+	table = createTable(MIN,MAX);
+	createClickers();
+	
+	owfdojo.addOnLoad(function(){
+		OWF.ready(function(){
+			setInterval(function(){
+				apple = table.getTimes();
+				for (i = 0; i< apple.length; i++){ apple[i] = Date.parse(apple[i]);	}
+				
+				OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
+			}, 10000);
+		});
 	});
+	
+	OWF.Eventing.subscribe("testChannel2", function(sender, msg){
+		//assuming msg looks like [a,b]
+		//var range = msg.split(',');
+		//table = createTable(parseInt(range[0], 10),parseInt(range[1], 10));
+		console.log(msg);
+	});
+
+});
     
