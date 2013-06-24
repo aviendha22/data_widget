@@ -169,3 +169,7 @@ function createClickers(){
 			table.collection = new Table(temp);
 		});
 }
+
+function getTimes(){
+	return table.getTimes();
+}
