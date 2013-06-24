@@ -1,10 +1,8 @@
 var MIN = 0;
 var MAX = Number.MAX_VALUE;
-var table;
-var apple;
+var table, apple;
 var datas = [];
 var temp = [];
-var t = d3.select("#raw_data");
 
 var Sentence = Backbone.Model.extend({
 	//something needs to go here....
@@ -57,8 +55,8 @@ rendering the table calls the function to render each sentence
 in the available collection of sentences*/
 var TableView = Backbone.View.extend({
 	el:$('#raw_data'),
-	initialize: function(t){
-		this.collection = new Table(t);
+	initialize: function(te){
+		this.collection = new Table(te);
 		this.render();
 	},
 	render: function(){	
@@ -88,9 +86,9 @@ only rows that occur in the specified time range*/
 function extractData(start, end){
 	var currData = [];
 	for (var i = 0; i < datas.length; i++){
-		var t = Date.parse(datas[i].time);							//JSON
+		var ti = Date.parse(datas[i].time);							//JSON
 		
-		if (t <= end && t >= start) { currData.push(datas[i]); }
+		if (ti <= end && ti >= start) { currData.push(datas[i]); }
 	}
 	return currData;
 }	
@@ -165,11 +163,5 @@ function createClickers(){
 				createTable(s,e);
 			else
 				createTable(MIN,MAX);
-				
-			table.collection = new Table(temp);
 		});
-}
-
-function getTimes(){
-	return table.getTimes();
 }
