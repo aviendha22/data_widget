@@ -165,6 +165,7 @@ function sendData(){
 		for (i = 0; i< apple.length; i++){ apple[i] = Date.parse(apple[i]);	}
 		
 		OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
+		OWF.Eventing.publish("testChannel3", "testing changes");
 	}, 10000);
 }
 
