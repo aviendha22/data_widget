@@ -77,8 +77,7 @@ var TableView = Backbone.View.extend({
 	},
 	getTimes: function(){
 		//underscore function to grab all of the times from the data
-		return (new Table(temp)).pluck('time');
-		//return this.collection.pluck('time');							//JSON
+		return this.collection.pluck('time');							//JSON
 	}
 	
 });
@@ -106,8 +105,7 @@ function createTable(s, e){
 		temp[i].time = new Date(Date.parse(temp[i].time));			//JSON
 	}
 	
-	var t = new TableView(temp);
-	return t;
+	table = new TableView(temp);
 }
 
 /*Create the headers of the table*/
