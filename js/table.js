@@ -103,21 +103,11 @@ function createClickers(){
 			if (this.className == "up"){
 				d3.selectAll("th").attr("class","unsorted");
 				this.className = "down";
-				temp.sort( function (a, b){ 
-					if ( a[col] < b[col] )
-						return 1;
-					else
-						return -1;
-				});
+				temp.sort( function (a, b){ return a[col] < b[col] ? 1 : -1; });
 			} else {
 				d3.selectAll("th").attr("class","unsorted");
 				this.className = "up";
-				temp.sort( function (a, b){ 
-					if( a[col] > b[col] )
-						return 1;
-					else 
-						return -1;
-				});
+				temp.sort( function (a, b){ return a[col] > b[col] ? 1 : -1; });
 			}
 			table = new TableView(temp);
 		});
@@ -140,6 +130,8 @@ function createClickers(){
 				createTable(s,e);
 			else
 				createTable(MIN,MAX);
+			
+			d3.selectAll("th").attr("class","unsorted");
 		});
 }
 
