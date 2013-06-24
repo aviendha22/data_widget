@@ -42,8 +42,7 @@ var SentenceView = Backbone.View.extend({
 			})
 			.selectAll('td')
 			.data(vals)
-			.enter()
-			.append('td')
+			.enter().append('td')
 				.text(function(d){ 
 					//cheat to only display part of the date string
 					if (typeof(d) === 'object') { return d.toString().substring(0,24); }
@@ -155,8 +154,9 @@ function createClickers(){
 	d3.select('#submit')
 		.on('click', function(){
 			var s = $('#start').val();
-			$('#start').val('');
 			var e = $('#end').val();
+			
+			$('#start').val('');
 			$('#end').val('');
 			
 			s = Date.parse(s);
@@ -166,5 +166,7 @@ function createClickers(){
 				createTable(s,e);
 			else
 				createTable(MIN,MAX);
+				
+			table.collection = new Table(temp);
 		});
 }
