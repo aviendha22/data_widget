@@ -139,9 +139,9 @@ function createClickers(){
 			e = Date.parse(e);
 			
 			if (s && e && s <= e)
-				table = createTable(s,e);
+				createTable(s,e);
 			else
-				table = createTable(MIN,MAX);
+				createTable(MIN,MAX);
 		});
 }
 
