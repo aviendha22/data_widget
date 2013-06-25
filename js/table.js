@@ -229,12 +229,11 @@ d3.json('./raw_data.txt', function(text){
 		OWF.ready(sendData);
 	});
 	
-
-	
 	OWF.Eventing.subscribe("testChannel2", function(sender, msg){
 		//assuming msg looks like [a,b]
 		var range = msg.substring(1,msg.length - 1).split(',');
 		createTable(parseInt(range[0], 10),parseInt(range[1], 10));
+		$('#start').val(msg);
 	});
 	
 });
