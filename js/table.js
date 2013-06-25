@@ -203,4 +203,12 @@ d3.json('./raw_data.txt', function(text){
 	});
 
 });
+
+var window_width = d3.select("#hold").style("width");
+var img_width = d3.select("#title").style("width");
+window_width = window_width.split("px")[0];
+img_width = img_width.split("px")[0];
+var center = parseInt(window_width,10)/2;
+var img_center = parseInt(img_width,10)/2;
+d3.select("#title").style("margin-left", (center - img_center) + "px");
     
