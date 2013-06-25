@@ -1,8 +1,9 @@
 #raw_data {
-	border-color:#00f;
+	border-color:#004785;
 	border-width:3px;
 	border-collapse:collapse;
-	
+	font-size:15px;
+	float: right;
 }
 td {
 	padding:0px 15px 0px 5px;
@@ -13,8 +14,24 @@ th {
 	text-align:left;
 	background-repeat:no-repeat;
 	background-position:right;
-	background-size: 22%;
 }
-table {
-	font-size:15px;
+.up{
+	background-image:url('img/asc.png');
+
 }
+.down{
+	background-image:url('img/des.png');
+}
+.unsorted{
+	background-image:url('img/uns.png');
+}
+.lit {
+	background-color:#366fb4;
+}
+.unlit {
+	background-color:#d5d8d9;
+}
+#inputs {
+	float: right;
+}
+

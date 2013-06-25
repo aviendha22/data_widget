@@ -24,7 +24,7 @@ for each attribute of the sentence, create a td tag around it
 which will correspond to a single column in this row*/
 var SentenceView = Backbone.View.extend({
 	tagName: 'tr',
-	className: 'data',
+	className: 'unlit',
 	initialize: function(){
 		this.render();
 	},
@@ -38,11 +38,12 @@ var SentenceView = Backbone.View.extend({
 		//grab this element and add d3 functionality
 		d3.select(this.el)
 			.on("mouseover", function(){
-				d3.select(this).style("background", "steelblue");
+				//d3.select(this).style("background", "#366fb4");
+				d3.select(this).attr("class", "lit");
 			})
 			.on("mouseout", function(){
-				d3.select(this).style("background", "white");
-				
+				//d3.select(this).style("background", "white");
+				d3.select(this).attr("class", "unlit");
 			})
 			.selectAll('td')
 			.data(vals)
@@ -161,14 +162,15 @@ function extractData(start, end){
 /*Create the headers of the table*/
 function createHeaders(arr){
 	var header = d3.select("#raw_data");
+	var h;
 	for (var i = 0; i < arr.length; i++){
-		var h = header.append("th")
-					.text(arr[i])
+		h = header.append("th")
+				.text(arr[i])
 				.attr("id", i)
 				.attr("class", "unsorted");
 		
 	}
-	h.style("background-image", "url('next_century.png')");
+	//h.style("background-image", "url('next_century.png')");
 }
 
 function sendData(){
