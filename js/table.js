@@ -175,13 +175,13 @@ function createHeaders(arr){
 }
 
 function sendData(){
-	setInterval(function(){
-		apple = table.getTimes();
-		for (i = 0; i< apple.length; i++){ apple[i] = Date.parse(apple[i]);	}
-		
-		OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
-		//OWF.Eventing.publish("testChannel3", "testing changes");
-	}, 10000);
+
+	apple = table.getTimes();
+	for (i = 0; i< apple.length; i++){ apple[i] = Date.parse(apple[i]);	}
+	
+	OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
+	//OWF.Eventing.publish("testChannel3", "testing changes");
+	
 }
 
 function setLocations(){
@@ -213,7 +213,7 @@ d3.json('./raw_data.txt', function(text){
 	setLocations();
 	
 	owfdojo.addOnLoad(function(){
-		OWF.ready(sendData);
+		OWF.ready( setInterval(sendData(), 10000));
 	});
 	
 	OWF.Eventing.subscribe("testChannel2", function(sender, msg){
