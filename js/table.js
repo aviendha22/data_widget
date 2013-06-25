@@ -233,7 +233,7 @@ d3.json('./raw_data.txt', function(text){
 		//assuming msg looks like [a,b]
 		//var range = msg.split(',');
 		//table = createTable(parseInt(range[0], 10),parseInt(range[1], 10));
-		console.log(msg);
+		document.getElementById('inputs').innerHTML += msg;
 	});
 
 });
