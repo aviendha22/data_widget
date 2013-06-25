@@ -143,7 +143,6 @@ function createClickers(){
 				createTable(MIN,MAX);
 			
 			d3.selectAll("th").attr("class","unsorted");
-			sendData();
 		});
 }
 
@@ -174,16 +173,14 @@ function createHeaders(arr){
 	//h.style("background-image", "url('next_century.png')");
 }
 
-function intervalSend(){
-	setInterval(sendData(), 10000);
-}
-
 function sendData(){
-	apple = table.getTimes();
-	for (i = 0; i< apple.length; i++){ apple[i] = Date.parse(apple[i]);	}
-	
-	OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
-	//OWF.Eventing.publish("testChannel3", "testing changes");
+	setInterval(function(){
+		apple = table.getTimes();
+		for (i = 0; i< apple.length; i++){ apple[i] = Date.parse(apple[i]);	}
+		
+		OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
+		//OWF.Eventing.publish("testChannel3", "testing changes");
+	}, 10000);
 }
 
 function setLocations(){
@@ -215,7 +212,7 @@ d3.json('./raw_data.txt', function(text){
 	setLocations();
 	
 	owfdojo.addOnLoad(function(){
-		OWF.ready(intervalSend);
+		OWF.ready(sendData);
 	});
 	
 	OWF.Eventing.subscribe("testChannel2", function(sender, msg){
