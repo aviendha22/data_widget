@@ -143,6 +143,7 @@ function createClickers(){
 				createTable(MIN,MAX);
 			
 			d3.selectAll("th").attr("class","unsorted");
+			sendData();
 		});
 }
 
