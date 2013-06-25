@@ -2,10 +2,7 @@
 	border-color:#00f;
 	border-width:3px;
 	border-collapse:collapse;
-	background-image:url('next_century.png');
-	background-repeat:no-repeat;
-	background-position:right top;
-	background-size: 6.5%;
+	
 }
 td {
 	padding:0px 15px 0px 5px;
@@ -14,6 +11,9 @@ th {
 	cursor: pointer;
 	padding:10px;
 	text-align:left;
+	background-repeat:no-repeat;
+	background-position:right;
+	background-size: 22%;
 }
 table {
 	font-size:15px;

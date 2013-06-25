@@ -162,11 +162,13 @@ function extractData(start, end){
 function createHeaders(arr){
 	var header = d3.select("#raw_data");
 	for (var i = 0; i < arr.length; i++){
-		header.append("th")
-			.text(arr[i])
-			.attr("id", i)
-			.attr("class", "unsorted");
+		var h = header.append("th")
+					.text(arr[i])
+				.attr("id", i)
+				.attr("class", "unsorted");
+		
 	}
+	h.style("background-image", "url('next_century.png')");
 }
 
 function sendData(){
