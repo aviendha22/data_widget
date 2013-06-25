@@ -9,6 +9,7 @@ var datas = [];
 var temp = [];
 
 var Sentence = Backbone.Model.extend({
+	defaults: {	}
 	//something needs to go here....
 });
 
@@ -41,6 +42,7 @@ var SentenceView = Backbone.View.extend({
 			})
 			.on("mouseout", function(){
 				d3.select(this).style("background", "white");
+				
 			})
 			.selectAll('td')
 			.data(vals)
