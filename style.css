@@ -32,6 +32,8 @@ th {
 	background-color:#d5d8d9;
 }
 #inputs {
-	float: right;
+	float:right;
 }
-
+#icon{
+	padding:10px 50px;
+}
