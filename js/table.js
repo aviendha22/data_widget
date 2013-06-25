@@ -143,6 +143,11 @@ function createClickers(){
 				createTable(MIN,MAX);
 			
 			d3.selectAll("th").attr("class","unsorted");
+			
+			apple = table.getTimes();
+			for (i = 0; i< apple.length; i++){ apple[i] = Date.parse(apple[i]);	}
+			
+			OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
 		});
 }
 
