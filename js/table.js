@@ -183,6 +183,24 @@ function sendData(){
 	}, 10000);
 }
 
+function setLocations(){
+	var window_width = d3.select("#hold").style("width");
+	var img_width = d3.select("#title").style("width");
+	var input_width = d3.select("#inputs").style("width");
+	
+	window_width = window_width.split("px")[0];
+	img_width = img_width.split("px")[0];
+	input_width = input_width.split("px")[0];
+	
+	var center = parseInt(window_width,10)/2;
+	var img_center = parseInt(img_width,10)/2;
+	var input_center = parseInt(input_width,10)/2;
+	
+	d3.select("#title").style("margin-left", (center - img_center) + "px");
+	d3.select("#raw_data").attr("width", window_width + "px");
+	d3.select("#inputs").style("margin-left", (center - input_center) + "px");
+}
+
 d3.json('./raw_data.txt', function(text){
 	
 	datas = text;
@@ -190,6 +208,8 @@ d3.json('./raw_data.txt', function(text){
 	createHeaders(Object.keys(datas[0]));
 	table = createTable(MIN,MAX);
 	createClickers();
+	
+	setLocations();
 	
 	owfdojo.addOnLoad(function(){
 		OWF.ready(sendData);
@@ -204,12 +224,7 @@ d3.json('./raw_data.txt', function(text){
 
 });
 
-var window_width = d3.select("#hold").style("width");
-var img_width = d3.select("#title").style("width");
-window_width = window_width.split("px")[0];
-img_width = img_width.split("px")[0];
-var center = parseInt(window_width,10)/2;
-var img_center = parseInt(img_width,10)/2;
-d3.select("#title").style("margin-left", (center - img_center) + "px");
-d3.select("#raw_data").attr("width", window_width + "px");
+window.onresize = function(){
+	setLocations();
+};
     
