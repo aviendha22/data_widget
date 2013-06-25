@@ -213,7 +213,9 @@ d3.json('./raw_data.txt', function(text){
 	setLocations();
 	
 	owfdojo.addOnLoad(function(){
-		OWF.ready( setInterval(sendData(), 10000));
+		OWF.ready(function(){
+		 setInterval(sendData(), 10000);
+		});
 	});
 	
 	OWF.Eventing.subscribe("testChannel2", function(sender, msg){
