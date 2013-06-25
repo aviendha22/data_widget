@@ -211,4 +211,5 @@ img_width = img_width.split("px")[0];
 var center = parseInt(window_width,10)/2;
 var img_center = parseInt(img_width,10)/2;
 d3.select("#title").style("margin-left", (center - img_center) + "px");
+d3.select("#raw_data").attr("width", window_width + "px");
     
