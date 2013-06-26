@@ -232,8 +232,8 @@ d3.json('./raw_data.txt', function(text){
 	});
 	
 	OWF.Eventing.subscribe("testChannel2", function(sender, msg){
-		//var range = msg.substring(1,msg.length - 1).split(',');
-		$('#start').val(msg);
+		var range = msg.substring(1,msg.length - 1).split(',');
+		$('#start').val(range[0]);
 	});
 });
 
