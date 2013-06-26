@@ -132,9 +132,6 @@ function createClickers(){
 			var s = $('#start').val();
 			var e = $('#end').val();
 			
-			$('#start').val('');
-			$('#end').val('');
-			
 			s = Date.parse(s);
 			e = Date.parse(e);
 			
@@ -144,12 +141,7 @@ function createClickers(){
 				alert("not true");
 				createTable(MIN,MAX);
 			}
-			d3.selectAll("th").attr("class","unsorted");
-			
-			apple = table.getTimes();
-			for (i = 0; i< apple.length; i++){ apple[i] = Date.parse(apple[i]);	}
-			
-			OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
+			resetAndSend();
 		});
 	
 	d3.select('#reset')
