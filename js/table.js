@@ -122,6 +122,8 @@ function createClickers(){
 		.on('click', function(){
 			var s = Date.parse($('#start').val());
 			var e = Date.parse($('#end').val());
+			$('#start').val('');
+			$('#end').val('');
 			
 			if (s && e && s <= e)
 				createTable(s,e);
@@ -193,8 +195,8 @@ function extractData(start, end){
 
 function resetAndSend(){
 	d3.selectAll("th").attr("class","unsorted");
-	$('#start').val('');
-	$('#end').val('');
+	//$('#start').val('');
+	//$('#end').val('');
 			
 	apple = table.getTimes();
 	for (i = 0; i< apple.length; i++){ apple[i] = Date.parse(apple[i]);	}
@@ -219,6 +221,8 @@ d3.json('./raw_data.txt', function(text){
 				var range = msg.substring(1,msg.length - 1).split(',');
 				createTable(Date.parse(range[0]), Date.parse(range[1]));
 				resetAndSend();
+				$('#start').val('');
+				$('#end').val('');
 			});
 		});
 	});
