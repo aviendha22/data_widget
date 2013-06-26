@@ -152,20 +152,27 @@ function sorter(elem, colId){
 	}
 }
 
+//grab the x coordinate of the center of the element in the dom with id tag
 function getCenter(tag){
-	var center = d3.select(tag).style("width");
-	center = center.split("px")[0];
-	return parseInt(center,10)/2;
+	var width = d3.select(tag).style("width");
+	width = center.split("px")[0];
+	return parseInt(width,10)/2;
 }
 
+/*Allows for automatic resizing and recentering of all objects within the
+widget when the window/frame is resized */
 function setLocations(){
 	var center = getCenter("#hold");
 	var title_center = getCenter("#title");
 	var input_center = getCenter("#inputs");
 	
+	//push title and inputs over until they are centered
 	d3.select("#title").style("margin-left", (center - title_center) + "px");
-	d3.select("#raw_data").attr("width", (center * 2) + "px");
 	d3.select("#inputs").style("margin-left", (center - input_center) + "px");
+	
+	//expand the table until it takes up entire width of frame
+	d3.select("#raw_data").attr("width", (center * 2) + "px");
+	
 }
 
 /*Create the headers of the table*/
@@ -215,7 +222,7 @@ d3.json('./raw_data.txt', function(text){
 	
 	owfdojo.addOnLoad(function(){
 		OWF.ready(function(){
-			setInterval(resetAndSend, 10000);					//to be removed later on
+			setInterval(resetAndSend, 10000);					//to be removed later on, and put back clearing into resetAndSend
 		
 			OWF.Eventing.subscribe("testChannel2", function(sender, msg){
 				var range = msg.substring(1,msg.length - 1).split(',');
