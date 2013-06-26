@@ -186,25 +186,19 @@ function resetAndSend(){
 	OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
 }
 
-function sendData(){
-	setInterval(resetAndSend, 10000);
+function getCenter(tag){
+	var center = d3.select(tag).style("width");
+	center = center.split("px")[0];
+	return parseInt(center,10)/2;
 }
 
 function setLocations(){
-	var window_width = d3.select("#hold").style("width");
-	var img_width = d3.select("#title").style("width");
-	var input_width = d3.select("#inputs").style("width");
+	var center = getCenter("#hold");
+	var title_center = getCenter("#title");
+	var input_center = getCenter("#inputs");
 	
-	window_width = window_width.split("px")[0];
-	img_width = img_width.split("px")[0];
-	input_width = input_width.split("px")[0];
-	
-	var center = parseInt(window_width,10)/2;
-	var img_center = parseInt(img_width,10)/2;
-	var input_center = parseInt(input_width,10)/2;
-	
-	d3.select("#title").style("margin-left", (center - img_center) + "px");
-	d3.select("#raw_data").attr("width", window_width + "px");
+	d3.select("#title").style("margin-left", (center - title_center) + "px");
+	d3.select("#raw_data").attr("width", (center * 2) + "px");
 	d3.select("#inputs").style("margin-left", (center - input_center) + "px");
 }
 
@@ -235,4 +229,3 @@ d3.json('./raw_data.txt', function(text){
 window.onresize = function(){
 	setLocations();
 };
-    
