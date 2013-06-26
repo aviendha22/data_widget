@@ -175,9 +175,8 @@ function setLocations(){
 /*Create the headers of the table*/
 function createHeaders(arr){
 	var header = d3.select("#raw_data");
-	var h;
 	for (var i = 0; i < arr.length; i++){
-		h = header.append("th")
+		header.append("th")
 				.text(arr[i])
 				.attr("id", i)
 				.attr("class", "unsorted");
