@@ -91,19 +91,6 @@ var TableView = Backbone.View.extend({
 	
 });
 
-function resetAndSend(){
-	
-	d3.selectAll("th").attr("class","unsorted");
-	$('#start').val('');
-	$('#end').val('');
-	
-	apple = table.getTimes();
-	for (i = 0; i< apple.length; i++){ apple[i] = Date.parse(apple[i]);	}
-	
-	OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
-	
-}
-
 /*Create the table based on start and end params, atm creates an
 entirely new table, probs want to just re-render it on change of input
 or addition of new data*/
@@ -143,7 +130,7 @@ function createClickers(){
 		.on('click', function(){
 			var s = $('#start').val();
 			var e = $('#end').val();
-				
+			
 			s = Date.parse(s);
 			e = Date.parse(e);
 			
@@ -151,14 +138,29 @@ function createClickers(){
 				createTable(s,e);
 			else
 				createTable(MIN,MAX);
+				
+			d3.selectAll("th").attr("class","unsorted");
+			$('#start').val('');
+			$('#end').val('');
 			
-			resetAndSend();
+			apple = table.getTimes();
+			for (i = 0; i< apple.length; i++){ apple[i] = Date.parse(apple[i]);	}
+			
+			OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
+			
 		});
 		
 	d3.select('#reset')
 		.on('click', function(){
 			createTable(MIN,MAX);
-			resetAndSend();
+			d3.selectAll("th").attr("class","unsorted");
+			$('#start').val('');
+			$('#end').val('');
+			
+			apple = table.getTimes();
+			for (i = 0; i< apple.length; i++){ apple[i] = Date.parse(apple[i]);	}
+			
+			OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
 		});
 }
 
@@ -193,7 +195,6 @@ function sendData(){
 		for (i = 0; i< apple.length; i++){ apple[i] = Date.parse(apple[i]);	}
 		
 		OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
-		//OWF.Eventing.publish("testChannel3", "testing changes");
 	}, 10000);
 }
 
@@ -233,7 +234,6 @@ d3.json('./raw_data.txt', function(text){
 		createTable(new Date(range[0]).getTime(), new Date(range[1]).getTime());
 		$('#start').val(range[0]);
 		$('#end').val(range[1]);
-		resetAndSend();
 	});
 });
 
