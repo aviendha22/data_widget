@@ -95,6 +95,7 @@ var TableView = Backbone.View.extend({
 entirely new table, probs want to just re-render it on change of input
 or addition of new data*/
 function createTable(s, e){
+	
 	temp = extractData(s, e);	
 	
 	for (var i = 0; i < temp.length; i++){
@@ -232,9 +233,9 @@ d3.json('./raw_data.txt', function(text){
 	
 	OWF.Eventing.subscribe("testChannel2", function(sender, msg){
 		var range = msg.substring(1,msg.length - 1).split(',');
-		$('#start').val(range[0]);
-		$('#end').val(range[1]);
-		createTable(new Date(range[0]).getTime(), new Date(range[1]).getTime());
+		$('#start').val(new Date(range[0]).getTime());
+		$('#end').val(new Date(range[1]).getTime());
+		//createTable(new Date(range[0]).getTime(), new Date(range[1]).getTime());
 	});
 });
 
