@@ -216,7 +216,6 @@ function setLocations(){
 }
 
 d3.json('./raw_data.txt', function(text){
-	
 	datas = text;
 	
 	createHeaders(Object.keys(datas[0]));
@@ -233,7 +232,7 @@ d3.json('./raw_data.txt', function(text){
 		//assuming msg looks like [a,b]
 		var range = msg.substring(1,msg.length - 1).split(',');
 		//createTable(parseInt(range[0], 10),parseInt(range[1], 10));
-		createTable(range[0], range[1]);
+		createTable(new Date(range[0]).getTime(), new Date(range[1]).getTime());
 		$('#start').val(range[0]);
 		$('#end').val(range[1]);
 	});
