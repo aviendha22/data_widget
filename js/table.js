@@ -191,6 +191,8 @@ function createHeaders(arr){
 
 function resetAndSend(){
 	d3.selectAll("th").attr("class","unsorted");
+	$('#start').val('');
+	$('#end').val('');
 			
 	apple = table.getTimes();
 	for (i = 0; i< apple.length; i++){ apple[i] = Date.parse(apple[i]);	}
