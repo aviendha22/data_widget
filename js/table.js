@@ -153,14 +153,6 @@ function createClickers(){
 	d3.select('#reset')
 		.on('click', function(){
 			createTable(MIN,MAX);
-			d3.selectAll("th").attr("class","unsorted");
-			$('#start').val('');
-			$('#end').val('');
-			
-			apple = table.getTimes();
-			for (i = 0; i< apple.length; i++){ apple[i] = Date.parse(apple[i]);	}
-			
-			OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
 		});
 }
 
