@@ -193,7 +193,7 @@ function sendData(){
 		
 		OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
 	}, 10000);*/
-	setInterval(resetAndSend(), 10000);
+	setInterval(resetAndSend, 10000);
 }
 
 function setLocations(){
