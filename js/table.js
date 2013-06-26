@@ -232,12 +232,8 @@ d3.json('./raw_data.txt', function(text){
 	});
 	
 	OWF.Eventing.subscribe("testChannel2", function(sender, msg){
-		var range = msg.substring(1,msg.length - 1).split(',');
-		//range[0] = new Date(range[0]);
-		//range[1] = new Date(range[1]);
-		$('#start').val(range[0]);
-		$('#end').val(range[1]);
-		//createTable(new Date(range[0]).getTime(), new Date(range[1]).getTime());
+		//var range = msg.substring(1,msg.length - 1).split(',');
+		$('#start').val(range);
 	});
 });
 
