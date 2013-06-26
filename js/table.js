@@ -112,16 +112,7 @@ function createClickers(){
 		.on("click", function(){
 			var col = parseInt(this.id, 10);
 			col = Object.keys(temp[0])[col];
-			
-			if (this.className == "up"){
-				d3.selectAll("th").attr("class","unsorted");
-				this.className = "down";
-				temp.sort( function (a, b){ return a[col] < b[col] ? 1 : -1; });
-			} else {
-				d3.selectAll("th").attr("class","unsorted");
-				this.className = "up";
-				temp.sort( function (a, b){ return a[col] > b[col] ? 1 : -1; });
-			}
+			sorter(this, col);
 			table = new TableView(temp);
 		});
 
@@ -145,6 +136,18 @@ function createClickers(){
 			createTable(MIN,MAX);
 			resetAndSend();
 		});
+}
+
+function sorter(elem, colId){
+	if (elem.className == "up"){
+		d3.selectAll("th").attr("class","unsorted");
+		elem.className = "down";
+		temp.sort( function (a, b){ return a[colId] < b[colId] ? 1 : -1; });
+	} else {
+		d3.selectAll("th").attr("class","unsorted");
+		elem.className = "up";
+		temp.sort( function (a, b){ return a[colId] > b[colId] ? 1 : -1; });
+	}
 }
 
 function getCenter(tag){
