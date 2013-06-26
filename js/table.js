@@ -187,12 +187,13 @@ function resetAndSend(){
 }
 
 function sendData(){
-	setInterval(function(){
+	/*setInterval(function(){
 		apple = table.getTimes();
 		for (i = 0; i< apple.length; i++){ apple[i] = Date.parse(apple[i]);	}
 		
 		OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
-	}, 10000);
+	}, 10000);*/
+	setInterval(resetAndSend(), 10000);
 }
 
 function setLocations(){
