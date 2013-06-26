@@ -155,7 +155,7 @@ function sorter(elem, colId){
 //grab the x coordinate of the center of the element in the dom with id tag
 function getCenter(tag){
 	var width = d3.select(tag).style("width");
-	width = center.split("px")[0];
+	width = width.split("px")[0];
 	return parseInt(width,10)/2;
 }
 
