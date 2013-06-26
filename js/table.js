@@ -99,7 +99,7 @@ function createTable(s, e){
 	temp = extractData(s, e);	
 	
 	for (var i = 0; i < temp.length; i++){
-		temp[i].time = new Date(Date.parse(temp[i].time));	//JSON
+		temp[i].time = new Date(Date.parse(temp[i].time));
 	}
 	
 	table = new TableView(temp);
@@ -110,8 +110,9 @@ function createClickers(){
 	//add a listener to sort the rows based upon what column is clicked
 	d3.selectAll("th")
 		.on("click", function(){
-			var col = parseInt(this.id, 10);	//CSV ALONE
-			col = Object.keys(temp[0])[col];	//JSON
+			var col = parseInt(this.id, 10);
+			col = Object.keys(temp[0])[col];
+			
 			if (this.className == "up"){
 				d3.selectAll("th").attr("class","unsorted");
 				this.className = "down";
@@ -124,16 +125,12 @@ function createClickers(){
 			table = new TableView(temp);
 		});
 
-	//grab times from forms for use in re-rendering the table
-	//will be removed, but shows example handling of future input
-	//from timeline widget
+	//grab times from forms for use in re-rendering the table will be removed
+	//but shows example handling of future input from timeline widget
 	d3.select('#submit')
 		.on('click', function(){
-			var s = $('#start').val();
-			var e = $('#end').val();
-			
-			s = Date.parse(s);
-			e = Date.parse(e);
+			var s = Date.parse($('#start').val());
+			var e = Date.parse($('#end').val());
 			
 			if (s && e && s <= e)
 				createTable(s,e);
@@ -148,42 +145,6 @@ function createClickers(){
 			createTable(MIN,MAX);
 			resetAndSend();
 		});
-}
-
-/*Get a range of data based on start and end params
-Returns a subset of the array of objects datas containing
-only rows that occur in the specified time range*/
-function extractData(start, end){
-	var currData = [];
-	for (var i = 0; i < datas.length; i++){
-		var ti = Date.parse(datas[i].time);							//JSON
-		
-		if (ti <= end && ti >= start) { currData.push(datas[i]); }
-	}
-	return currData;
-}	
-
-/*Create the headers of the table*/
-function createHeaders(arr){
-	var header = d3.select("#raw_data");
-	var h;
-	for (var i = 0; i < arr.length; i++){
-		h = header.append("th")
-				.text(arr[i])
-				.attr("id", i)
-				.attr("class", "unsorted");
-	}
-}
-
-function resetAndSend(){
-	d3.selectAll("th").attr("class","unsorted");
-	$('#start').val('');
-	$('#end').val('');
-			
-	apple = table.getTimes();
-	for (i = 0; i< apple.length; i++){ apple[i] = Date.parse(apple[i]);	}
-	
-	OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
 }
 
 function getCenter(tag){
@@ -202,6 +163,42 @@ function setLocations(){
 	d3.select("#inputs").style("margin-left", (center - input_center) + "px");
 }
 
+/*Create the headers of the table*/
+function createHeaders(arr){
+	var header = d3.select("#raw_data");
+	var h;
+	for (var i = 0; i < arr.length; i++){
+		h = header.append("th")
+				.text(arr[i])
+				.attr("id", i)
+				.attr("class", "unsorted");
+	}
+}
+
+/*Get a range of data based on start and end params
+Returns a subset of the array of objects datas containing
+only rows that occur in the specified time range*/
+function extractData(start, end){
+	var currData = [];
+	for (var i = 0; i < datas.length; i++){
+		var ti = Date.parse(datas[i].time);
+		
+		if (ti <= end && ti >= start) { currData.push(datas[i]); }
+	}
+	return currData;
+}	
+
+function resetAndSend(){
+	d3.selectAll("th").attr("class","unsorted");
+	$('#start').val('');
+	$('#end').val('');
+			
+	apple = table.getTimes();
+	for (i = 0; i< apple.length; i++){ apple[i] = Date.parse(apple[i]);	}
+	
+	OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
+}
+
 d3.json('./raw_data.txt', function(text){
 	
 	datas = text;
@@ -213,12 +210,10 @@ d3.json('./raw_data.txt', function(text){
 	
 	owfdojo.addOnLoad(function(){
 		OWF.ready(function(){
-			setInterval(resetAndSend, 10000);
+			setInterval(resetAndSend, 10000);					//to be removed later on
 		
 			OWF.Eventing.subscribe("testChannel2", function(sender, msg){
 				var range = msg.substring(1,msg.length - 1).split(',');
-				$('#start').val(range[0]);
-				$('#end').val(range[1]);
 				createTable(Date.parse(range[0]), Date.parse(range[1]));
 				resetAndSend();
 			});
