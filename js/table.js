@@ -99,7 +99,7 @@ function createTable(s, e){
 	temp = extractData(s, e);	
 	
 	for (var i = 0; i < temp.length; i++){
-		temp[i].time = new Date(Date.parse(temp[i].time));
+		temp[i].time = new Date(temp[i].time);
 	}
 	
 	table = new TableView(temp);
@@ -125,10 +125,8 @@ function createClickers(){
 			$('#start').val('');
 			$('#end').val('');
 			
-			if (s && e && s <= e)
-				createTable(s,e);
-			else
-				createTable(MIN,MAX);
+			if (s && e && s <= e) { createTable(s,e); }
+			else { createTable(MIN,MAX); }
 				
 			resetAndSend();
 		});
@@ -172,7 +170,6 @@ function setLocations(){
 	
 	//expand the table until it takes up entire width of frame
 	d3.select("#raw_data").attr("width", (center * 2) + "px");
-	
 }
 
 /*Create the headers of the table*/
