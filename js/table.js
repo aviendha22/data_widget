@@ -137,10 +137,9 @@ function createClickers(){
 			
 			if (s && e && s <= e)
 				createTable(s,e);
-			else{
-				alert("not true");
+			else
 				createTable(MIN,MAX);
-			}
+				
 			resetAndSend();
 		});
 	
@@ -216,17 +215,16 @@ function setLocations(){
 
 d3.json('./raw_data.txt', function(text){
 	
-
 	datas = text;
 	
 	createHeaders(Object.keys(datas[0]));
 	table = createTable(MIN,MAX);
 	createClickers();
-	
 	setLocations();
 	
 	owfdojo.addOnLoad(function(){
 		OWF.ready(sendData);
+		
 		OWF.ready(function(){
 			OWF.Eventing.subscribe("testChannel2", function(sender, msg){
 				var range = msg.substring(1,msg.length - 1).split(',');
