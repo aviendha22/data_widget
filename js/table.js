@@ -95,10 +95,10 @@ var TableView = Backbone.View.extend({
 entirely new table, probs want to just re-render it on change of input
 or addition of new data*/
 function createTable(s, e){
-	temp = extractData(s, e);										
+	temp = extractData(s, e);	
 	
 	for (var i = 0; i < temp.length; i++){
-		temp[i].time = new Date(Date.parse(temp[i].time));			//JSON
+		temp[i].time = new Date(Date.parse(temp[i].time));	//JSON
 	}
 	
 	table = new TableView(temp);
@@ -109,8 +109,8 @@ function createClickers(){
 	//add a listener to sort the rows based upon what column is clicked
 	d3.selectAll("th")
 		.on("click", function(){
-			var col = parseInt(this.id, 10);							//CSV ALONE
-			col = Object.keys(temp[0])[col];							//JSON
+			var col = parseInt(this.id, 10);	//CSV ALONE
+			col = Object.keys(temp[0])[col];	//JSON
 			if (this.className == "up"){
 				d3.selectAll("th").attr("class","unsorted");
 				this.className = "down";
@@ -122,7 +122,7 @@ function createClickers(){
 			}
 			table = new TableView(temp);
 		});
-		
+
 	//grab times from forms for use in re-rendering the table
 	//will be removed, but shows example handling of future input
 	//from timeline widget
@@ -131,6 +131,9 @@ function createClickers(){
 			var s = $('#start').val();
 			var e = $('#end').val();
 			
+			$('#start').val('');
+			$('#end').val('');
+			
 			s = Date.parse(s);
 			e = Date.parse(e);
 			
@@ -138,22 +141,25 @@ function createClickers(){
 				createTable(s,e);
 			else
 				createTable(MIN,MAX);
-				
+			
 			d3.selectAll("th").attr("class","unsorted");
-			$('#start').val('');
-			$('#end').val('');
 			
 			apple = table.getTimes();
 			for (i = 0; i< apple.length; i++){ apple[i] = Date.parse(apple[i]);	}
 			
 			OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
-			
 		});
-		
+	
 	d3.select('#reset')
 		.on('click', function(){
 			createTable(MIN,MAX);
-		});
+			d3.selectAll("th").attr("class","unsorted");
+			
+			apple = table.getTimes();
+			for (i = 0; i< apple.length; i++){ apple[i] = Date.parse(apple[i]);	}
+			
+			OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
+	});
 }
 
 /*Get a range of data based on start and end params
@@ -209,6 +215,7 @@ function setLocations(){
 }
 
 d3.json('./raw_data.txt', function(text){
+
 	datas = text;
 	
 	createHeaders(Object.keys(datas[0]));
@@ -225,8 +232,8 @@ d3.json('./raw_data.txt', function(text){
 		var range = msg.substring(1,msg.length - 1).split(',');
 		$('#start').val(range[0]);
 		$('#end').val(range[1]);
-		createTable(new Date(range[0]).getTime(), new Date(range[1]).getTime());
 	});
+
 });
 
 window.onresize = function(){
