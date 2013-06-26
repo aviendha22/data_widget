@@ -235,7 +235,6 @@ d3.json('./raw_data.txt', function(text){
 		var range = msg.substring(1,msg.length - 1).split(',');
 		$('#start').val(range[0]);
 		$('#end').val(range[1]);
-		createTable(Date.parse(range[0]), Date.parse(range[1]));
 	});
 });
 
