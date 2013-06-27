@@ -138,21 +138,19 @@ function createClickers(){
 		});
 }
 
-function sorter(elem, colId, list){
-	if (list.length !== 0){
-
+function sorter(elem, colId){
+	//don't bother sorting if temp is empty
+	if (temp.length !== 0){
 		if (elem.className == "up"){
 			d3.selectAll("th").attr("class","unsorted");
 			elem.className = "down";
-			list.sort( function (a, b){ return a[colId] < b[colId] ? 1 : -1; });
+			temp.sort( function (a, b){ return a[colId] < b[colId] ? 1 : -1; });
 		} else {
 			d3.selectAll("th").attr("class","unsorted");
 			elem.className = "up";
-			list.sort( function (a, b){ return a[colId] > b[colId] ? 1 : -1; });
+			temp.sort( function (a, b){ return a[colId] > b[colId] ? 1 : -1; });
 		}
 	}
-	
-	return list;
 }
 
 //grab the x coordinate of the center of the element in the dom with id tag
