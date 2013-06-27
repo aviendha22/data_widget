@@ -172,7 +172,7 @@ function setLocations(){
 	d3.select("#inputs").style("margin-left", (center - input_center) + "px");
 	
 	//expand the table until it takes up entire width of frame
-	d3.select("#raw_data").attr("width", (center * 2) + "px");
+	d3.select("#raw_data").style("width", (center * 2) + "px");
 }
 
 /*Create the headers of the table*/
