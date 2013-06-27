@@ -157,7 +157,8 @@ function sorter(elem, colId, list){
 
 //grab the x coordinate of the center of the element in the dom with id tag
 function getCenter(tag){
-	var width = d3.select(tag).style("width");
+	var w = d3.select(tag);
+	w = w.style("width");
 	width = width.split("px")[0];
 	return parseInt(width,10)/2;
 }
@@ -203,8 +204,7 @@ function extractData(start, end){
 }	
 
 function resetAndSend(){
-	var headers = d3.selectAll("th");
-	headers.attr("class","unsorted");
+	var headers = d3.selectAll("th").attr("class","unsorted");
 	//$('#start').val('');
 	//$('#end').val('');
 			
