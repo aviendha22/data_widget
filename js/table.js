@@ -139,15 +139,19 @@ function createClickers(){
 }
 
 function sorter(elem, colId, list){
-	if (elem.className == "up"){
-		d3.selectAll("th").attr("class","unsorted");
-		elem.className = "down";
-		list.sort( function (a, b){ return a[colId] < b[colId] ? 1 : -1; });
-	} else {
-		d3.selectAll("th").attr("class","unsorted");
-		elem.className = "up";
-		list.sort( function (a, b){ return a[colId] > b[colId] ? 1 : -1; });
+	if (list.length !== 0){
+
+		if (elem.className == "up"){
+			d3.selectAll("th").attr("class","unsorted");
+			elem.className = "down";
+			list.sort( function (a, b){ return a[colId] < b[colId] ? 1 : -1; });
+		} else {
+			d3.selectAll("th").attr("class","unsorted");
+			elem.className = "up";
+			list.sort( function (a, b){ return a[colId] > b[colId] ? 1 : -1; });
+		}
 	}
+	
 	return list;
 }
 
@@ -204,33 +208,34 @@ function resetAndSend(){
 	//$('#end').val('');
 			
 	apple = table.getTimes();
-	for (i = 0; i< apple.length; i++){ apple[i] = Date.parse(apple[i]);	}
+	for (i = 0; i < apple.length; i++){ apple[i] = Date.parse(apple[i]); }
 	
 	OWF.Eventing.publish("testChannel1", JSON.stringify(apple));
 }
 
 d3.json('./raw_data.txt', function(text){
-	
-	datas = text;
-	
-	createHeaders(Object.keys(datas[0]));
-	table = createTable(MIN,MAX);
-	createClickers();
-	setLocations();
-	
-	owfdojo.addOnLoad(function(){
-		OWF.ready(function(){
-			setInterval(resetAndSend, 10000);					//to be removed later on, and put back clearing into resetAndSend
+	if (text){
+		datas = text;
 		
-			OWF.Eventing.subscribe("testChannel2", function(sender, msg){
-				var range = msg.substring(1,msg.length - 1).split(',');
-				createTable(Date.parse(range[0]), Date.parse(range[1]));
-				resetAndSend();
-				$('#start').val('');
-				$('#end').val('');
+		createHeaders(Object.keys(datas[0]));
+		table = createTable(MIN,MAX);
+		createClickers();
+		setLocations();
+		
+		owfdojo.addOnLoad(function(){
+			OWF.ready(function(){
+				setInterval(resetAndSend, 10000);					//to be removed later on, and put back clearing into resetAndSend
+			
+				OWF.Eventing.subscribe("testChannel2", function(sender, msg){
+					var range = msg.substring(1,msg.length - 1).split(',');
+					createTable(Date.parse(range[0]), Date.parse(range[1]));
+					resetAndSend();
+					$('#start').val('');
+					$('#end').val('');
+				});
 			});
 		});
-	});
+	}
 });
 
 window.onresize = function(){
