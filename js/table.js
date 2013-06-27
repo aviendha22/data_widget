@@ -203,7 +203,8 @@ function extractData(start, end){
 }	
 
 function resetAndSend(){
-	d3.selectAll("th").attr("class","unsorted");
+	var headers = d3.selectAll("th");
+	headers.attr("class","unsorted");
 	//$('#start').val('');
 	//$('#end').val('');
 			
