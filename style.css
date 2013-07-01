@@ -1,4 +1,4 @@
-#raw_data {
+.raw_data {
 	border-color:#004785;
 	border-width:3px;
 	border-collapse:collapse;
@@ -29,11 +29,10 @@ th {
 .unlit {
 	background-color:#d5d8d9;
 }
-#inputs{
+.inputs{
 	display:inline-block;
 }
-#title{
+.title{
 	color:#004785;
 	display:inline-block;
 }
-

@@ -65,7 +65,7 @@ var SentenceView = Backbone.View.extend({
 rendering the table calls the function to render each sentence
 in the available collection of sentences*/
 var TableView = Backbone.View.extend({
-	el:$('#raw_data'),
+	el:$('.raw_data'),
 	initialize: function(te){
 		this.collection = new Table(te);
 		this.render();
@@ -117,12 +117,12 @@ function createClickers(){
 
 	//grab times from forms for use in re-rendering the table will be removed
 	//but shows example handling of future input from timeline widget
-	d3.select('#submit')
+	d3.select('.submit')
 		.on('click', function(){
-			var s = Date.parse($('#start').val());
-			var e = Date.parse($('#end').val());
-			$('#start').val('');
-			$('#end').val('');
+			var s = Date.parse($('.start').val());
+			var e = Date.parse($('.end').val());
+			$('.start').val('');
+			$('.end').val('');
 			
 			if (s && e && s <= e) { createTable(s,e); }
 			else { createTable(MIN,MAX); }
@@ -130,7 +130,7 @@ function createClickers(){
 			resetAndSend();
 		});
 	
-	d3.select('#reset')
+	d3.select('.reset')
 		.on('click', function(){
 			createTable(MIN,MAX);
 			resetAndSend();
@@ -162,21 +162,21 @@ function getCenter(tag){
 /*Allows for automatic resizing and recentering of all objects within the
 widget when the window/frame is resized */
 function setLocations(){
-	var center = getCenter("#hold");
-	var title_center = getCenter("#title");
-	var input_center = getCenter("#inputs");
+	var center = getCenter(".hold");
+	var title_center = getCenter(".title");
+	var input_center = getCenter(".inputs");
 	
 	//push title and inputs over until they are centered
-	d3.select("#title").style("margin-left", (center - title_center) + "px");
-	d3.select("#inputs").style("margin-left", (center - input_center) + "px");
+	d3.select(".title").style("margin-left", (center - title_center) + "px");
+	d3.select(".inputs").style("margin-left", (center - input_center) + "px");
 	
 	//expand the table until it takes up entire width of frame
-	d3.select("#raw_data").style("width", (center * 2) + "px");
+	d3.select(".raw_data").style("width", (center * 2) + "px");
 }
 
 /*Create the headers of the table*/
 function createHeaders(arr){
-	var header = d3.select("#raw_data");
+	var header = d3.select(".raw_data");
 	for (var i = 0; i < arr.length; i++){
 		header.append("th")
 				.text(arr[i])
@@ -201,8 +201,8 @@ function extractData(start, end){
 
 function resetAndSend(){
 	var headers = d3.selectAll("th").attr("class","unsorted");
-	//$('#start').val('');
-	//$('#end').val('');
+	//$('.start').val('');
+	//$('.end').val('');
 			
 	apple = table.getTimes();
 	for (i = 0; i < apple.length; i++){ apple[i] = Date.parse(apple[i]); }
@@ -212,7 +212,7 @@ function resetAndSend(){
 
 d3.json('./raw_data.txt', function(text){
 	if (text){
-		$('#title').html('<h1>'+text.title+'</h1>');
+		$('.title').html('<h1>'+text.title+'</h1>');
 		datas = text.fields;
 		
 		createHeaders(Object.keys(datas[0]));
@@ -228,8 +228,8 @@ d3.json('./raw_data.txt', function(text){
 					var range = msg.substring(1,msg.length - 1).split(',');
 					createTable(Date.parse(range[0]), Date.parse(range[1]));
 					resetAndSend();
-					$('#start').val('');
-					$('#end').val('');
+					$('.start').val('');
+					$('.end').val('');
 				});
 			});
 		});
