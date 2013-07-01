@@ -3,6 +3,7 @@
 	<meta charset="utf-8">
 	<title>EVEREST Raw Data Table</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 </head>
 <body>
 	<div id="hold">
@@ -17,9 +18,18 @@
 	</div>
 	<script src="js/underscore.js"></script>
 	<script src="js/jquery.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<script src="js/backbone.js"></script>
 	<script src="js/d3.v3.js"></script>
 	<script src="js/table.js"></script>
 	<script type="text/javascript" src="http://everest-build/owf-sample-html/js/owf-widget-debug.js"></script>
+	
+	<script>
+		$(function(){
+			$( "#start" ).datepicker();
+			$( "#end" ).datepicker();
+		});
+	</script>
+	
 </body>
 </html>
