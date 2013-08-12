@@ -25,17 +25,10 @@ var links = [];
 var update = function(sender, msg) {
 	//$.getJSON(url + 'assertion/?callback=?', function(data){
 	//d3.json('./js/raw_data.json', function(data){
-	var arrays = createArrays(msg, 'disjoint');
+	var arrays = createArrays(nodes, links, msg, 'disjoint');
 	
-	for (var i = 0; i < arrays[0].length; i++){
-		nodes.push(arrays[0][i]);
-	}
-	
-	for (i = 0; i < arrays[1].length; i++){
-		arrays[1][i].source += links.length;
-		arrays[1][i].target += links.length;
-		links.push(arrays[1][i]);
-	}
+	nodes = arrays[0];
+	links = arrays[1];
 	console.log(nodes);
 	console.log(links);
 

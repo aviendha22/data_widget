@@ -24,15 +24,19 @@
  * the nodes array of the node to point to for this link
  */
 
-function createArrays(msg, mode){
-	var nodes = [];
-    var links = [];
+function createArrays(nodes, links, msg, mode){
 	var data = [];
 	var count = 0;
 
 	data.push(msg);
-
+	
+	for (i = 0; i < nodes.length; i++) {
+		nodes[i] = JSON.stringify(nodes[i]);
+	}
+	
 	for(var i = 0; i < data.length; i++){
+		
+	
 		var item = data[i];
 		console.log(item);
 		var ent1 = {
