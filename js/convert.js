@@ -24,14 +24,11 @@
  * the nodes array of the node to point to for this link
  */
 
-function createArrays(msg){
-	
-	var nodes = [],
-    links = [];
-	
-	var count = 0;
-
+function createArrays(msg, mode){
+	var nodes = [];
+    var links = [];
 	var data = [];
+	var count = 0;
 
 	data.push(msg);
 
@@ -39,16 +36,16 @@ function createArrays(msg){
 		var item = data[i];
 		console.log(item);
 		var ent1 = {
-			name: item.entity1,
-			group: count
-			//group:0
+			name: item.entity1
 		};
+		
+		ent1.group = mode === 'disjoint' ? count : 0;
 
 		var ent2 = {
-			name: item.entity2,
-			group: -(count+1)
-			//group: 1
+			name: item.entity2
 		};
+
+		ent2.group = mode === 'disjoint' ? -(count+1) : 1;
 
 		if(nodes.indexOf(JSON.stringify(ent1)) === -1) {
 			nodes.push(JSON.stringify(ent1));
@@ -75,4 +72,6 @@ function createArrays(msg){
 	for (i = 0; i < nodes.length; i++) {
 		nodes[i] = JSON.parse(nodes[i]);
 	}
+	
+	return [nodes, links];
 }

@@ -22,7 +22,9 @@ owfdojo.addOnLoad(function() {
 var update = function(sender, msg) {
 	//$.getJSON(url + 'assertion/?callback=?', function(data){
 	//d3.json('./js/raw_data.json', function(data){
-	createArrays(msg);
+	var arrays = createArrays(msg, 'disjoint');
+	var nodes = arrays[0];
+	var links = arrays[1];
 	console.log(nodes);
 
 	var force = d3.layout.force()
@@ -46,9 +48,10 @@ var update = function(sender, msg) {
 		.on("mouseover", mouseover)
 		.on("mouseout", mouseout)
 		.style("fill", function(d) {
-				var c = d.group < 0 ? 0 : 1;
-				return color(c); 
-				})
+			var c = d.group < 0 ? 0 : 1;
+			return color(c); 
+		})
+		
 	.call(force.drag);
 
 	linktext = svg.selectAll("g.linklabelholder").data(force.links());
