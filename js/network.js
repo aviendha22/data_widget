@@ -24,12 +24,6 @@ var network = function(svg, data, mode){
 		.linkDistance(100)
 		.charge(-1000);
 		
-	owfdojo.addOnLoad(function() {
-		OWF.ready(function() {
-			OWF.Eventing.subscribe("com.nextcentury.everest.assertion_announcing.assertions", me.draw);
-		});
-	});
-		
 	me.draw = function(sender, msg){
 		if(msg){
 			var arrays = addElement(nodes, links, msg, 'disjoint');
