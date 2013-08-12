@@ -26,7 +26,7 @@ var network = function(svg, data, mode){
 		
 	owfdojo.addOnLoad(function() {
 		OWF.ready(function() {
-			OWF.Eventing.subscribe("com.nextcentury.everest.assertion_announcing.assertions", me.update);
+			OWF.Eventing.subscribe("com.nextcentury.everest.assertion_announcing.assertions", me.draw);
 		});
 	});
 		
