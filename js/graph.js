@@ -31,7 +31,7 @@ var update = function(sender, msg) {
 		nodes.push(arrays[0][i]);
 	}
 	
-	for (i = 0; i < arrays[1].length; j++){
+	for (i = 0; i < arrays[1].length; i++){
 		links.push(arrays[1][i]);
 	}
 	console.log(nodes);
