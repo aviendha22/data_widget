@@ -38,8 +38,7 @@ var update = function(sender, msg) {
 		.size([width, height])
 		.linkDistance(100)
 		.charge(-1000)
-		.on("tick", tick)
-		.start();
+		.on("tick", tick);
 
 	link = svg.selectAll(".link")
 		.data(links)
