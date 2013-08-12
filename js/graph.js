@@ -19,13 +19,23 @@ owfdojo.addOnLoad(function() {
 	});
 });
 
+var nodes = [];
+var links = [];
+
 var update = function(sender, msg) {
 	//$.getJSON(url + 'assertion/?callback=?', function(data){
 	//d3.json('./js/raw_data.json', function(data){
 	var arrays = createArrays(msg, 'disjoint');
-	var nodes = arrays[0];
-	var links = arrays[1];
+	
+	for (var i = 0; i < arrays[0].length; i++){
+		nodes.push(arrays[0][i]);
+	}
+	
+	for (i = 0; i < arrays[1].length; j++){
+		links.push(arrays[1][i]);
+	}
 	console.log(nodes);
+	console.log(links);
 
 	var force = d3.layout.force()
 		.nodes(nodes)
@@ -51,8 +61,7 @@ var update = function(sender, msg) {
 			var c = d.group < 0 ? 0 : 1;
 			return color(c); 
 		})
-		
-	.call(force.drag);
+		.call(force.drag);
 
 	linktext = svg.selectAll("g.linklabelholder").data(force.links());
 	linktext.enter().append("g").attr("class", "linklabelholder")
