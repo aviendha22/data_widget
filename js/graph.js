@@ -74,6 +74,7 @@ var update = function(sender, msg) {
 		.attr("dy", ".35em")
 		.text(function(d) { return d.name; });
 
+	force.start();
 };
 
 function tick() {
