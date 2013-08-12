@@ -1,0 +1,11 @@
+.link {
+	fill: none;
+	stroke: #666;
+	stroke-width: 1.5px;
+}
+
+text {
+	font: 10px sans-serif;
+	pointer-events: none;
+	fill: black;
+}
