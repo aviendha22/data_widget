@@ -8,14 +8,14 @@ function midpoint(p1, p2){
 	};
 };
 
-var network = function(svg, data, mode){
+var network = function(svg, data, disjoint){
 	var me = this;
 	me.svg = svg;
 	
 	me.nodes = [];
 	me.links = [];
 	for (var i = 0; i < data.length; i++){
-		me.arrays = addNewAssertion(me.nodes, me.links, data[i], 'disjoint');
+		me.arrays = addNewAssertion(me.nodes, me.links, data[i], disjoint);
 		me.nodes = me.arrays[0];
 		me.links = me.arrays[1];
 	}
@@ -25,14 +25,15 @@ var network = function(svg, data, mode){
 	me.color = d3.scale.category10();
 	me.linktext;
 	
+	
 	me.force = d3.layout.force()
 		.size([svg.attr('width'), svg.attr('height')])
 		.linkDistance(100)
-		.charge(-1000);
+		.charge(-500);
 		
 	me.draw = function(sender, msg){
 		if(msg){
-			var arrays = addNewAssertion(me.nodes, me.links, msg, 'disjoint');
+			var arrays = addNewAssertion(me.nodes, me.links, msg, disjoint);
 			me.nodes = arrays[0];
 			me.links = arrays[1];
 		}
@@ -46,7 +47,7 @@ var network = function(svg, data, mode){
 		me.link = me.link.data(me.links);
 		me.link.exit().remove();
 		
-		me.link.enter().append("path")
+		me.link.enter().insert("path", ":first-child")
 			.attr("class", "link")
 			.attr('marker-mid', 'url(#Triangle)');
 		
@@ -57,12 +58,11 @@ var network = function(svg, data, mode){
 			.attr("class", "node")
 			.on("mouseover", me.mouseover)
 			.on("mouseout", me.mouseout)
-			.style("fill", function(d) {
-				var c = d.group < 0 ? 0 : 1;
-				return me.color(c); 
+			.style("fill", function(d){
+				return d.color;
 			})
 			.call(me.force.drag);
-		
+				
 		me.linktext = me.svg.selectAll("g.linklabelholder").data(me.force.links());
 		me.linktext.enter().append("g").attr("class", "linklabelholder")
 			.append("text")
@@ -73,12 +73,27 @@ var network = function(svg, data, mode){
 			.text(function(d) { return d.value; });
 		
 		nodeEnter.append("circle")
+			.attr('class', function(d) { return d.value; })
 			.attr("r", 8);
 		
 		nodeEnter.append("text")
 			.attr("x", 12)
 			.attr("dy", ".35em")
 			.text(function(d) { return d.value; });
+		
+		//d3.selectAll('circle').each(function(){		changes those in the other graphs too	
+		if(!disjoint){
+			svg.selectAll('circle').each(function(){
+				var c = d3.select(this);
+				for (var i = 0; i < me.nodes.length; i++){
+					if (c.attr('class') === me.nodes[i].value){
+						c.style('fill', function(d){
+							return d.color;
+						});
+					}
+				}
+			});
+		}
 	};
 	
 	me.tick = function(){
@@ -90,8 +105,9 @@ var network = function(svg, data, mode){
 		me.node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 	
 		me.linktext.attr("transform", function(d) {
-				return "translate(" + (d.source.x + d.target.x) / 2 + "," 
-				+ (d.source.y + d.target.y) / 2 + ")"; });
+			return "translate(" + (d.source.x + d.target.x) / 2 + "," 
+					+ (d.source.y + d.target.y) / 2 + ")"; 
+		});
 	};
 	
 	me.mouseover = function(){
